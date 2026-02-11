@@ -31,32 +31,54 @@ sx index .
 sx "replication backlog"
 ```
 
-## quick start
-
-Build or update index:
+With `uv`:
 
 ```bash
-./search index .
+uv tool install searxh
+searxh "replication backlog"
+sx "replication backlog"
 ```
 
-Check whether the current directory is indexed:
+Upgrade with `uv`:
 
 ```bash
-./search status
+uv tool upgrade searxh
+```
+
+## quick start
+
+Index first (required before search):
+
+```bash
+sx index .
+```
+
+Check status:
+
+```bash
+sx status
 ```
 
 Search:
 
 ```bash
-./search "replication backlog"
+sx "replication backlog"
+```
+
+Reindex options:
+
+```bash
+sx index .          # incremental update
+sx index . --full   # full rebuild
 ```
 
 ## command forms
 
 ```bash
-./search [global-options] index [root] [index-options]
-./search [global-options] search "query"
-./search [global-options] "query"
+sx [global-options] index [root] [index-options]
+sx [global-options] status
+sx [global-options] search "query"
+sx [global-options] "query"
 ```
 
 ## common examples
@@ -64,38 +86,38 @@ Search:
 Full rebuild:
 
 ```bash
-./search index . --full
+sx index . --full
 ```
 
 Search with snippet + color:
 
 ```bash
-./search --snippet --color "aof fsync"
+sx --snippet --color "aof fsync"
 ```
 
 Filter by path:
 
 ```bash
-./search --path src/ "replication"
+sx --path src/ "replication"
 ```
 
 Filter by extension:
 
 ```bash
-./search --ext .c,.h,.md "dict"
+sx --ext .c,.h,.md "dict"
 ```
 
 JSON output:
 
 ```bash
-./search --json "cluster slots"
+sx --json "cluster slots"
 ```
 
 Custom index path:
 
 ```bash
-./search index . --out /path/to/myindex.sqlite
-./search --index /path/to/myindex.sqlite "term"
+sx index . --out /path/to/myindex.sqlite
+sx --index /path/to/myindex.sqlite "term"
 ```
 
 ## key options
