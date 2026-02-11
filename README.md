@@ -1,4 +1,4 @@
-# sx search
+# searxh
 
 Small BM25 search tool for local code/docs. No third-party dependencies.
 
@@ -14,12 +14,35 @@ Small BM25 search tool for local code/docs. No third-party dependencies.
 
 - Python 3.9+
 
+## install
+
+Editable install:
+
+```bash
+python3 -m pip install -e .
+```
+
+After install, use:
+
+```bash
+searxh index .
+searxh "replication backlog"
+sx index .
+sx "replication backlog"
+```
+
 ## quick start
 
 Build or update index:
 
 ```bash
 ./search index .
+```
+
+Check whether the current directory is indexed:
+
+```bash
+./search status
 ```
 
 Search:
@@ -117,7 +140,9 @@ Results look weak
 
 ## files
 
-- `search`: CLI entrypoint
-- `bm25tool.py`: indexing/search engine
+- `src/sx_search/cli.py`: CLI
+- `src/sx_search/engine.py`: indexing/search engine
+- `search`: compatibility wrapper script
+- `bm25tool.py`: compatibility import wrapper
 - `test_bm25tool.py`: tests
 - `SEARCH.md`: short usage notes

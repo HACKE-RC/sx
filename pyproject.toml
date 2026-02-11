@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "searxh"
+version = "0.1.1"
+description = "Dependency-free BM25 indexer and search CLI for local code/docs"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [{ name = "HACKE-RC" }]
+keywords = ["search", "bm25", "sqlite", "cli", "indexer"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Environment :: Console",
+  "Topic :: Text Processing :: Indexing",
+]
+
+[project.scripts]
+searxh = "sx_search.cli:main"
+sx = "sx_search.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
