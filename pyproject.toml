@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "searxh"
-version = "0.1.1"
+version = "0.1.2"
 description = "Dependency-free BM25 indexer and search CLI for local code/docs"
 readme = "README.md"
 requires-python = ">=3.9"
