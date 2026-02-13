@@ -27,9 +27,15 @@ Search:
 - `./search --ext .c,.h "dict"`: restrict results to certain extensions/names
 - `./search --json "term"`: machine-readable output
 
+Alternation (pipe search):
+- `./search "ACLLoad|ACLSetUser|ACLParse|load"`: search for multiple terms at once
+- `./search "ACLLoad|ACLSetUser" src/acl.c`: alternation scoped to a path
+- `./search --ext .c,.h "dict|hash|set"`: alternation with extension filter
+
 ## Notes
 
 - The index is stored in `bm25.sqlite` by default.
 - Indexing is incremental: only changed files are reprocessed, removed files are deleted from the index.
 - Tokenization splits `snake_case` and simple `camelCase` identifiers so code symbols are searchable.
+- Queries with `|` split each alternative, tokenize them, and also regex-match against the index terms.
 

@@ -8,6 +8,7 @@ Small BM25 search tool for local code/docs. No third-party dependencies.
 - Supports incremental indexing (only changed files are reprocessed)
 - Ranks with BM25
 - Shows optional snippets with line numbers
+- Supports `|` alternation in queries (`sx "ACLLoad|ACLSetUser|load"`)
 - Supports path/extension filters, JSON output, and colored matches
 
 ## requirements
@@ -72,13 +73,24 @@ sx index .          # incremental update
 sx index . --full   # full rebuild
 ```
 
+## alternation (pipe search)
+
+Use `|` to search for multiple terms at once — each alternative is tokenized and matched against the index:
+
+```bash
+sx "ACLLoad|ACLSetUser|ACLParse|load"
+sx "ACLLoad|ACLSetUser" src/acl.c       # with path filter
+sx --ext .c,.h "dict|hash|set"
+```
+
 ## command forms
 
 ```bash
 sx [global-options] index [root] [index-options]
 sx [global-options] status
 sx [global-options] search "query"
-sx [global-options] "query"
+sx [global-options] "query"              # BM25 ranked search
+sx [global-options] "query" path         # BM25 search scoped to path
 ```
 
 ## common examples

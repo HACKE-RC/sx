@@ -191,6 +191,10 @@ def main(argv: list[str] | None = None) -> int:
             return 2
         return args.func(args)
     if rest:
+        # sx "query" [path] — first arg is query, second (if any) is path filter.
+        path_filter = g.path
+        if len(rest) > 1:
+            path_filter = rest[1]
         ns = argparse.Namespace(
             index=g.index,
             k=g.k,
@@ -198,13 +202,13 @@ def main(argv: list[str] | None = None) -> int:
             b=g.b,
             stem=g.stem,
             no_stopwords=g.no_stopwords,
-            path=g.path,
+            path=path_filter,
             ext=g.ext,
             path_boost=g.path_boost,
             snippet=(True if not g.snippet else True),  # default on for shorthand
             json=g.json,
             color=g.color,
-            query=" ".join(rest),
+            query=rest[0],
         )
         return cmd_search(ns)
 

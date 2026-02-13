@@ -723,7 +723,36 @@ def search(
         return (root, [])
 
     sw = DEFAULT_STOPWORDS if stopwords else set()
-    q_terms = tokenize(query, stem=stem, stopwords=sw)
+
+    # Support | alternation: split on |, tokenize each part, and also
+    # regex-match raw alternatives against the terms table.
+    if "|" in query:
+        alternatives = [a.strip() for a in query.split("|") if a.strip()]
+        q_terms: List[str] = []
+        for alt in alternatives:
+            q_terms.extend(tokenize(alt, stem=stem, stopwords=sw))
+        # Also regex-match the lowered alternatives directly against index terms
+        # to catch cases where the user typed exact tokens (e.g. "load|parse").
+        try:
+            pat = "|".join(re.escape(a.lower()) for a in alternatives if a)
+            rx = re.compile(pat)
+            for row in con.execute("SELECT term FROM terms"):
+                t = str(row[0])
+                if rx.fullmatch(t) and t not in q_terms:
+                    q_terms.append(t)
+        except re.error:
+            pass
+        # Deduplicate while preserving order.
+        seen: set[str] = set()
+        deduped: List[str] = []
+        for t in q_terms:
+            if t not in seen:
+                seen.add(t)
+                deduped.append(t)
+        q_terms = deduped
+    else:
+        q_terms = tokenize(query, stem=stem, stopwords=sw)
+
     if not q_terms:
         con.close()
         return (root, [])
@@ -833,3 +862,5 @@ def highlight(s: str, terms: Sequence[str], *, color: bool) -> str:
             flags=re.IGNORECASE,
         )
     return out
+
+
