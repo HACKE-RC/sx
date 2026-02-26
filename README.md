@@ -178,4 +178,4 @@ Results look weak
 - `src/sx_search/engine.py`: indexing/search engine
 - `bm25tool.py`: compatibility import wrapper
 - `test_bm25tool.py`: tests
-- `SEARCH.md`: short usage notes
+- `docs/search.md`: short usage notes
