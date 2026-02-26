@@ -154,7 +154,7 @@ If a file produces no tokens (for example, empty/whitespace-only), it is saved a
 ## tests
 
 ```bash
-python3 -m unittest discover -s . -p 'test_*.py' -q
+PYTHONPATH=src python3 -m unittest discover -s tests -p 'test_*.py' -q
 ```
 
 ## troubleshooting
@@ -176,6 +176,6 @@ Results look weak
 
 - `src/sx_search/cli.py`: CLI
 - `src/sx_search/engine.py`: indexing/search engine
-- `bm25tool.py`: compatibility import wrapper
-- `test_bm25tool.py`: tests
+- `src/bm25tool.py`: compatibility import wrapper
+- `tests/test_bm25tool.py`: tests
 - `docs/search.md`: short usage notes

@@ -23,6 +23,7 @@ sx = "sx_search.cli:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
+py-modules = ["bm25tool"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

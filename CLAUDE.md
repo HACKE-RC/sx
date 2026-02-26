@@ -13,7 +13,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 uv pip install -e .
 
 # Run tests
-python3 -m unittest discover -s . -p 'test_*.py' -q
+PYTHONPATH=src python3 -m unittest discover -s tests -p 'test_*.py' -q
 
 # Build package
 uv build
@@ -43,12 +43,12 @@ Two core modules under `src/sx_search/`:
 
 SQLite schema (created by `init_db()`): tables `meta`, `docs`, `terms`, `postings`. Incremental indexing compares mtime/size to skip unchanged files.
 
-Compatibility wrapper: `bm25tool.py` (import shim) re-exports from `sx_search`.
+Compatibility wrapper: `src/bm25tool.py` (import shim) re-exports from `sx_search`.
 
 ## Conventions
 
 - No third-party runtime dependencies. stdlib only.
 - Python 3.9+ (`from __future__ import annotations` used for older typing).
 - Use `uv` for package management.
-- Tests live in `test_bm25tool.py` using `unittest`; they create temp directories, index, and search against them.
+- Tests live in `tests/test_bm25tool.py` using `unittest`; they create temp directories, index, and search against them.
 - The `skills/sx/SKILL.md` defines a Claude Code skill for running `sx` searches.
