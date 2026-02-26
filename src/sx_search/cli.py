@@ -124,7 +124,7 @@ def cmd_status(args: argparse.Namespace) -> int:
 
 
 def build_parser() -> argparse.ArgumentParser:
-    p = argparse.ArgumentParser(prog="search", add_help=True)
+    p = argparse.ArgumentParser(prog="sx", add_help=True)
     p.add_argument("--index", default=bm25tool.DEFAULT_DB_PATH, help=f"Index DB path (default: {bm25tool.DEFAULT_DB_PATH})")
     p.add_argument("--k", type=int, default=10, help="Top K results (default: 10)")
     p.add_argument("--k1", type=float, default=1.2, help="BM25 k1 (default: 1.2)")
@@ -150,7 +150,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_index.add_argument("--no-progress", action="store_true", help="Disable progress output")
     p_index.set_defaults(func=cmd_index)
 
-    p_search = sub.add_parser("search", help="Search query (alternate form; you can also do: search \"terms\")")
+    p_search = sub.add_parser("search", help="Search query (alternate form; you can also do: sx \"terms\")")
     p_search.add_argument("query", help="Query string")
     p_search.set_defaults(func=cmd_search)
 
@@ -164,8 +164,8 @@ def main(argv: list[str] | None = None) -> int:
         argv = sys.argv
     p = build_parser()
 
-    # Support: ./search "terms" (plus global flags).
-    global_p = argparse.ArgumentParser(prog="search", add_help=False)
+    # Support: sx "terms" (plus global flags).
+    global_p = argparse.ArgumentParser(prog="sx", add_help=False)
     global_p.add_argument("--index", default=bm25tool.DEFAULT_DB_PATH)
     global_p.add_argument("--k", type=int, default=10)
     global_p.add_argument("--k1", type=float, default=1.2)

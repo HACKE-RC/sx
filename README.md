@@ -163,7 +163,7 @@ python3 -m unittest discover -s . -p 'test_*.py' -q
 - Make sure the DB parent directory exists and is writable.
 - Try writing the DB in the current project first:
 ```bash
-./search index . --out ./bm25.sqlite
+sx index . --out ./bm25.sqlite
 ```
 
 Results look weak
@@ -176,7 +176,6 @@ Results look weak
 
 - `src/sx_search/cli.py`: CLI
 - `src/sx_search/engine.py`: indexing/search engine
-- `search`: compatibility wrapper script
 - `bm25tool.py`: compatibility import wrapper
 - `test_bm25tool.py`: tests
 - `SEARCH.md`: short usage notes

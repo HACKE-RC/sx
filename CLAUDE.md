@@ -43,7 +43,7 @@ Two core modules under `src/sx_search/`:
 
 SQLite schema (created by `init_db()`): tables `meta`, `docs`, `terms`, `postings`. Incremental indexing compares mtime/size to skip unchanged files.
 
-Compatibility wrappers: `bm25tool.py` (import shim) and `search` (script shim) both re-export from `sx_search`.
+Compatibility wrapper: `bm25tool.py` (import shim) re-exports from `sx_search`.
 
 ## Conventions
 
